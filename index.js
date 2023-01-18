@@ -13,12 +13,21 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+
+//controllers
+const categoriesController = require('./categories/categoriesController')
+
+//routers 
+app.use('/', categoriesController)
+
+
 //rotas
 
 //renderizar home
 app.get('/', (req, res) => {
     res.render('index')
 })
+
 
 //rodar o servidor
 app.listen(3000, () => {
