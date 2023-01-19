@@ -22,7 +22,7 @@ router.post('/admin/categories/create', (req, res) => {
         Category.create({
             title: title,
             slug: slugiFy(title)
-        }).then(() => res.redirect('/admin/categories/'))
+        }).then(() => res.redirect('/admin/categories/new'))
     } else {
         res.render('admin/categories/new')
     }
