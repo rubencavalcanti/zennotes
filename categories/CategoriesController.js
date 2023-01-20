@@ -6,31 +6,16 @@ const slugiFy = require('slugify');
 const Category = require('./Category');
 
 
-//rotas
+//  **********  ROTAS DAS VIEWS ****************
+
+
+
+//busca e renderiza as categorias 
 router.get('/admin/categories', (req, res) => {
-    res.render('admin/categories/index')
+    Category.findAll({ order: [['id', 'DESC']]}).then(categories => {
+        res.render('admin/categories/index', {categories: categories})
+    })
 })
-
-//renderizar view new
-router.get('/admin/categories/new', (req, res) => {
-    res.render('admin/categories/new')
-})
-
-//rota para criar categoria
-router.post('/admin/categories/create', (req, res) => {
-    let title = req.body.title;
-
-    if(title != undefined) {
-        Category.create({
-            title: title,
-            slug: slugiFy(title)
-        }).then(() => res.redirect('/admin/categories/new'))
-    } else {
-        res.render('admin/categories/new')
-    }
-    
-})
-
 
 //renderizar view edit
 router.get('/admin/categories/edit/:id', (req, res) => {
@@ -46,7 +31,31 @@ router.get('/admin/categories/edit/:id', (req, res) => {
     })
 })
 
-//rota para realizar o update
+//renderizar view new
+router.get('/admin/categories/new', (req, res) => {
+    res.render('admin/categories/new')
+})
+
+
+// *************** ROTAS PARA EXECUTAR FUNCOES NO BANCO ***********************
+
+
+//CREATE
+router.post('/admin/categories/create', (req, res) => {
+    let title = req.body.title;
+
+    if(title != undefined) {
+        Category.create({
+            title: title,
+            slug: slugiFy(title)
+        }).then(() => res.redirect('/admin/categories/new'))
+    } else {
+        res.render('admin/categories/new')
+    }
+    
+})
+
+//UPDATE
 router.post('/admin/categories/update', (req, res) => {
     let id = req.body.id;
     let title = req.body.title;
@@ -64,7 +73,7 @@ router.post('/admin/categories/update', (req, res) => {
 })
 
 
-//rota para deletar categoria
+//DELETE
 router.post('/admin/categories/delete', (req, res) => {
     let id = req.body.id;
 
