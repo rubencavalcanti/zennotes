@@ -2,6 +2,7 @@
 
 
 <form action="/admin/categories/update" method="post">
-    <input type="text" name="title" value="<%= category.title %> ">
+    <input required type="text" name="title" value="<%= category.title %> ">
+    <input type="hidden" name="id" value="<%= category.id %> ">
     <button type="submit">cadastrar categoria</button>
 </form>
