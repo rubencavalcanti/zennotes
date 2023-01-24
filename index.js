@@ -25,12 +25,15 @@ connection
     
 //models
 const Category = require('./categories/Category');
+const Note = require('./notes/Note');
 
 //controllers
 const categoriesController = require('./categories/categoriesController')
+const notesController = require('./notes/notesController')
 
 //routers 
 app.use('/', categoriesController)
+app.use('/', notesController)
 
 
 //rotas
